@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico do Seu Cão — Método Online Meu Cão Educado</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --verde-escuro: #3B4D1E;
+    --verde-medio: #5A7A2A;
+    --verde-claro: #8BAF3F;
+    --creme: #F5F0E8;
+    --creme-escuro: #EDE6D6;
+    --texto: #1A1A1A;
+    --texto-suave: #4A4A4A;
+    --branco: #FFFFFF;
+    --destaque: #E8176A;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--creme);
+    color: var(--texto);
+    min-height: 100vh;
+  }
+
+  .header {
+    background: var(--verde-escuro);
+    padding: 18px 20px;
+    text-align: center;
+  }
+  .header-brand {
+    color: var(--creme);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  .hero {
+    background: var(--verde-escuro);
+    text-align: center;
+    padding: 44px 24px 52px;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(34px, 8vw, 58px);
+    color: var(--branco);
+    line-height: 1.05;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+  .hero h1 span { color: #C5E07A; }
+  .hero p {
+    color: rgba(255,255,255,0.75);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .container {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 0 16px 80px;
+  }
+
+  /* ---- CARDS BASE ---- */
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card {
+    background: var(--branco);
+    border-radius: 14px;
+    padding: 28px 28px 32px;
+    margin-top: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  @media (max-width: 480px) { .card { padding: 22px 18px 26px; } }
+
+  .hidden { display: none !important; }
+  .visible { animation: slideDown 0.35s ease forwards; }
+
+  .step-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--verde-medio);
+    margin-bottom: 14px;
+  }
+  .q-title {
+    font-size: clamp(16px, 3.5vw, 20px);
+    font-weight: 700;
+    color: var(--texto);
+    line-height: 1.35;
+    margin-bottom: 6px;
+  }
+  .q-sub {
+    font-size: 14px;
+    color: var(--texto-suave);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .text-input {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid #DDD6C8;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: var(--texto);
+    background: var(--branco);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .text-input:focus {
+    border-color: var(--destaque);
+    box-shadow: 0 0 0 3px rgba(232,23,106,0.1);
+  }
+
+  .options-grid { display: grid; gap: 10px; }
+  .options-grid.two-col { grid-template-columns: 1fr 1fr; }
+
+  .opt-btn {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid #DDD6C8;
+    border-radius: 10px;
+    background: var(--branco);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--texto);
+    cursor: pointer;
+    text-align: left;
+    line-height: 1.4;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+  }
+  .opt-btn:hover { border-color: var(--verde-medio); background: #EEF5E0; }
+  .opt-btn.selected {
+    border-color: var(--destaque);
+    background: var(--destaque);
+    color: var(--branco);
+  }
+  .options-grid.two-col .opt-btn { text-align: center; }
+
+  /* Botão Montar Plano */
+  .btn-submit {
+    display: none;
+    width: 100%;
+    padding: 18px;
+    margin-top: 16px;
+    border: none;
+    border-radius: 12px;
+    background: var(--destaque);
+    color: var(--branco);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-submit.show { display: block; animation: slideDown 0.3s ease; }
+  .btn-submit:hover { background: #c4115a; }
+  .btn-submit:active { transform: scale(0.98); }
+
+  /* ---- CARDS RESULTADO ---- */
+
+  /* Card diagnóstico — fundo rosa como no original */
+  .card-diag {
+    background: var(--destaque);
+    border-radius: 14px;
+    padding: 28px 28px 32px;
+    margin-top: 16px;
+    box-shadow: 0 2px 14px rgba(232,23,106,0.25);
+    color: var(--branco);
+  }
+  @media (max-width: 480px) { .card-diag { padding: 22px 18px 26px; } }
+
+  .diag-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 12px;
+  }
+  .diag-title {
+    font-size: clamp(15px, 3.5vw, 17px);
+    font-weight: 700;
+    line-height: 1.45;
+    margin-bottom: 16px;
+  }
+  .diag-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 5px;
+  }
+  .diag-good {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--branco);
+    margin-top: 10px;
+  }
+
+  /* Cards dos 3 passos — brancos */
+  .card-step {
+    background: var(--branco);
+    border-radius: 14px;
+    padding: 20px 22px 22px;
+    margin-top: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  @media (max-width: 480px) { .card-step { padding: 18px 16px 20px; } }
+
+  .snum {
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    background: var(--destaque);
+    color: var(--branco);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    margin-top: 1px;
+  }
+  .card-step h4 { font-size: 14px; font-weight: 700; color: var(--texto); margin-bottom: 4px; }
+  .card-step p  { font-size: 14px; color: var(--texto-suave); line-height: 1.65; }
+
+  /* Card alerta — verde escuro */
+  .card-alert {
+    background: var(--verde-escuro);
+    border-radius: 14px;
+    padding: 26px 26px 28px;
+    margin-top: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    color: var(--branco);
+  }
+  @media (max-width: 480px) { .card-alert { padding: 20px 18px 22px; } }
+  .card-alert h3 { font-size: clamp(15px, 3.5vw, 17px); font-weight: 700; margin-bottom: 8px; }
+  .card-alert p  { font-size: 14px; line-height: 1.65; opacity: 0.85; }
+
+  /* Card oferta */
+  .card-offer {
+    background: var(--branco);
+    border-radius: 14px;
+    padding: 32px 28px 36px;
+    margin-top: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  @media (max-width: 480px) { .card-offer { padding: 24px 18px 28px; } }
+
+  .offer-tag {
+    display: inline-block;
+    background: #FFF0F5;
+    color: var(--destaque);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 99px;
+    margin-bottom: 14px;
+  }
+  .offer-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(24px, 5vw, 36px);
+    color: var(--verde-escuro);
+    line-height: 1.1;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .offer-intro { font-size: 15px; line-height: 1.7; color: var(--texto-suave); margin-bottom: 6px; }
+  .offer-personal { font-size: 15px; font-weight: 600; color: var(--verde-escuro); margin-bottom: 24px; line-height: 1.6; }
+
+  .offer-list { list-style: none; margin-bottom: 24px; }
+  .offer-list li {
+    display: flex; gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--creme-escuro);
+    font-size: 14px; line-height: 1.5;
+    color: var(--texto-suave);
+    align-items: flex-start;
+  }
+  .offer-list li:last-child { border-bottom: none; }
+  .offer-list li::before {
+    content: "✓";
+    color: var(--verde-medio);
+    font-weight: 700;
+    font-size: 15px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .offer-urgency {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--texto-suave);
+    line-height: 1.6;
+    margin-bottom: 26px;
+    padding: 14px 16px;
+    background: var(--creme);
+    border-radius: 8px;
+    border-left: 3px solid var(--verde-claro);
+  }
+
+  .btn-cta {
+    display: block; width: 100%;
+    padding: 20px;
+    background: var(--destaque);
+    color: var(--branco);
+    text-decoration: none;
+    border-radius: 12px;
+    text-align: center;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-cta:hover { background: #c4115a; }
+  .btn-cta:active { transform: scale(0.98); }
+  .btn-cta-l1 { display: block; font-size: 19px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .btn-cta-l2 { display: block; font-size: 13px; font-weight: 500; opacity: 0.9; margin-top: 2px; }
+
+  .footer-brand { text-align: center; margin-top: 18px; font-size: 12px; color: var(--texto-suave); opacity: 0.55; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="header-brand">Diego Lima — Veterinário Adestrador</span>
+</div>
+
+<div class="hero">
+  <h1>Descubra o que está<br>travando o seu <span>cão</span></h1>
+  <p>Seis perguntas rápidas. Um plano feito especialmente para o seu cão.</p>
+</div>
+
+<div class="container" id="main-container">
+
+  <!-- CARD 1 — Nome -->
+  <div class="card visible" id="card1">
+    <div class="q-title">Qual é o nome do seu cão?</div>
+    <input class="text-input" type="text" id="input-nome" placeholder="Ex: Rex, Luna, Bob..." autocomplete="off">
+  </div>
+
+  <!-- CARD 2 — Gênero -->
+  <div class="card hidden" id="card2">
+    <div class="q-title" id="q2-title">É macho ou fêmea?</div>
+    <div class="options-grid two-col">
+      <button class="opt-btn" onclick="pickGender('macho',this)">Macho</button>
+      <button class="opt-btn" onclick="pickGender('femea',this)">Fêmea</button>
+    </div>
+  </div>
+
+  <!-- CARD 3 — Idade -->
+  <div class="card hidden" id="card3">
+    <div class="q-title" id="q3-title">Quantos anos tem?</div>
+    <div class="options-grid">
+      <button class="opt-btn" onclick="pickAge('filhote',this)">Filhote (menos de 1 ano)</button>
+      <button class="opt-btn" onclick="pickAge('jovem',this)">Jovem (1 a 3 anos)</button>
+      <button class="opt-btn" onclick="pickAge('adulto',this)">Adulto (3 a 7 anos)</button>
+      <button class="opt-btn" onclick="pickAge('senior',this)">Sênior (mais de 7 anos)</button>
+    </div>
+  </div>
+
+  <!-- CARD 4 — Comportamento -->
+  <div class="card hidden" id="card4">
+    <div class="q-title" id="q4-title">Você chama o seu cão durante o passeio. O que acontece?</div>
+    <div class="q-sub">Escolha a opção que mais se parece com o seu cão.</div>
+    <div class="options-grid" id="q4-opts"></div>
+  </div>
+
+  <!-- CARD 5 — Distração -->
+  <div class="card hidden" id="card5">
+    <div class="q-title" id="q5-title">O que mais distrai o seu cão?</div>
+    <div class="q-sub">Escolha o maior problema no momento.</div>
+    <div class="options-grid">
+      <button class="opt-btn" onclick="pickDistract('dogs',this)">Outros cães</button>
+      <button class="opt-btn" onclick="pickDistract('smells',this)">Cheiros no chão</button>
+      <button class="opt-btn" onclick="pickDistract('animals',this)">Pássaros ou outros animais</button>
+      <button class="opt-btn" onclick="pickDistract('wander',this)">Explorar e farejar tudo</button>
+      <button class="opt-btn" onclick="pickDistract('people',this)">Pessoas ou lugares movimentados</button>
+    </div>
+  </div>
+
+  <!-- CARD 6 — Motivação -->
+  <div class="card hidden" id="card6">
+    <div class="q-title" id="q6-title">Quando ele obedece, qual é o motivo?</div>
+    <div class="q-sub">Escolha a opção mais verdadeira.</div>
+    <div class="options-grid" id="q6-opts"></div>
+  </div>
+
+  <!-- BOTÃO FINAL -->
+  <button class="btn-submit" id="btn-submit" onclick="showResult()">Montar meu plano</button>
+
+  <!-- ===== RESULTADO (cards inline, aparecem após o botão) ===== -->
+
+  <!-- Card diagnóstico -->
+  <div class="card-diag hidden" id="res-diag">
+    <div class="diag-label" id="res-label">SEU PLANO DE TREINO</div>
+    <div class="diag-title" id="res-title"></div>
+    <p class="diag-body" id="res-body1"></p>
+    <p class="diag-body" id="res-body2"></p>
+    <p class="diag-good">A boa notícia é que isso pode mudar com o treino certo.</p>
+  </div>
+
+  <!-- Passo 1 -->
+  <div class="card-step hidden" id="res-step1">
+    <div class="snum">1</div>
+    <div>
+      <h4>Mude o que obedecer significa</h4>
+      <p id="step1-txt"></p>
+    </div>
+  </div>
+
+  <!-- Passo 2 -->
+  <div class="card-step hidden" id="res-step2">
+    <div class="snum">2</div>
+    <div>
+      <h4>Construa obediência em ambiente fácil</h4>
+      <p id="step2-txt"></p>
+    </div>
+  </div>
+
+  <!-- Passo 3 -->
+  <div class="card-step hidden" id="res-step3">
+    <div class="snum">3</div>
+    <div>
+      <h4>Introduza distrações aos poucos</h4>
+      <p id="step3-txt"></p>
+    </div>
+  </div>
+
+  <!-- Card alerta -->
+  <div class="card-alert hidden" id="res-alert">
+    <h3>Onde a maioria das pessoas trava</h3>
+    <p>É fácil entender isso na teoria. Mas saber exatamente o que fazer na prática, com o seu cão, é a parte difícil.</p>
+  </div>
+
+  <!-- Card oferta -->
+  <div class="card-offer hidden" id="res-offer">
+    <div class="offer-tag">Método completo</div>
+    <div class="offer-title">Método Online Meu Cão Educado</div>
+    <p class="offer-intro">É por isso que criei o Método Online Meu Cão Educado. Um treinamento passo a passo feito especialmente para quem quer ter um cão mais calmo, que obedece em casa e na rua, sem precisar brigar ou repetir o comando várias vezes.</p>
+    <p class="offer-personal" id="offer-personal"></p>
+    <ul class="offer-list">
+      <li>Qualquer pessoa consegue aplicar, mesmo sem nunca ter treinado um cão antes.</li>
+      <li>Cabe na sua rotina: menos de 10 minutos por dia já mudam o comportamento do seu cão.</li>
+      <li>Você entende como o seu cão aprende de verdade, e isso faz tudo funcionar mais rápido.</li>
+      <li>Seu cão para de ignorar você na rua e começa a prestar atenção mesmo com distrações ao redor.</li>
+      <li>Você descobre como fazer seu cão gostar de obedecer, sem ter que mostrar o petisco e sem repetir o comando dez vezes.</li>
+      <li>Passeios deixam de ser uma batalha. Seu cão aprende a se controlar perto de outros cães, pessoas e movimento.</li>
+      <li>Você vê na prática como eu faço com cães reais de clientes, de raças e tamanhos diferentes.</li>
+      <li>Você não fica travado numa dúvida: pode perguntar direto para mim nos comentários de cada aula.</li>
+    </ul>
+    <div class="offer-urgency">Nada muda se você sair daqui sem agir. Mas se você seguir o Método Online Meu Cão Educado, você terá um cão mais calmo e obediente de verdade.</div>
+    <a class="btn-cta" href="https://canilmeucaoeducado.github.io/meucaoeducado/" target="_blank">
+      <span class="btn-cta-l1">QUERO COMEÇAR AGORA</span>
+      <span class="btn-cta-l2">Acessar o Método Online Meu Cão Educado</span>
+    </a>
+    <div class="footer-brand">Diego Lima — Veterinário Adestrador • @vetadestradordiego</div>
+  </div>
+
+</div><!-- fim container -->
+
+<script>
+var s = { name:'', gender:null, age:null, recall:null, distract:null, why:null };
+var nameTimer;
+
+function showCard(id) {
+  var el = document.getElementById(id);
+  if (!el.classList.contains('hidden')) return;
+  el.classList.remove('hidden');
+  el.classList.remove('visible');
+  void el.offsetWidth;
+  el.classList.add('visible');
+  setTimeout(function(){ el.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 60);
+}
+
+function markSelected(btn) {
+  btn.parentElement.querySelectorAll('.opt-btn').forEach(function(b){ b.classList.remove('selected'); });
+  btn.classList.add('selected');
+}
+
+/* Q1 */
+document.getElementById('input-nome').addEventListener('input', function(){
+  clearTimeout(nameTimer);
+  var val = this.value.trim();
+  s.name = val;
+  if (val.length >= 2) {
+    nameTimer = setTimeout(function(){
+      document.getElementById('q2-title').textContent = s.name + ' é macho ou fêmea?';
+      showCard('card2');
+    }, 350);
+  }
+});
+
+/* Q2 */
+function pickGender(g, btn) {
+  markSelected(btn);
+  s.gender = g;
+  var sub = g === 'femea' ? 'ela' : 'ele';
+  document.getElementById('q3-title').textContent = 'Quantos anos tem ' + s.name + '?';
+  document.getElementById('q4-title').textContent = 'Você chama ' + s.name + ' durante o passeio. O que acontece?';
+  document.getElementById('q5-title').textContent = 'O que mais distrai ' + s.name + '?';
+  document.getElementById('q6-title').textContent = 'Quando ' + sub + ' obedece, qual é o motivo?';
+  buildQ4(); buildQ6();
+  showCard('card3');
+}
+
+/* Q3 */
+function pickAge(a, btn) {
+  markSelected(btn);
+  s.age = a;
+  showCard('card4');
+}
+
+/* Q4 */
+function buildQ4() {
+  var sub = s.gender === 'femea' ? 'Ela' : 'Ele';
+  var opts = [
+    { l: sub + ' me ignora completamente', v: 'ignore' },
+    { l: sub + ' hesita mas não vem', v: 'hesitate' },
+    { l: sub + ' vem às vezes, não sempre', v: 'sometimes' },
+    { l: sub + ' vem, mas perde o foco quando aparece algo mais interessante', v: 'distracted' },
+    { l: sub + ' geralmente volta, mas eu não confio totalmente', v: 'mostly' }
+  ];
+  var c = document.getElementById('q4-opts'); c.innerHTML = '';
+  opts.forEach(function(o){
+    var b = document.createElement('button'); b.className = 'opt-btn';
+    b.textContent = o.l;
+    b.onclick = function(){ pickRecall(o.v, b); };
+    c.appendChild(b);
+  });
+}
+function pickRecall(v, btn) {
+  markSelected(btn);
+  s.recall = v;
+  showCard('card5');
+}
+
+/* Q5 */
+function pickDistract(v, btn) {
+  markSelected(btn);
+  s.distract = v;
+  showCard('card6');
+}
+
+/* Q6 */
+function buildQ6() {
+  var sub = s.gender === 'femea' ? 'ela' : 'ele';
+  var subC = sub.charAt(0).toUpperCase() + sub.slice(1);
+  var opts = [
+    { l: 'Tenho comida ou petisco na mão', v: 'food' },
+    { l: 'Minha voz soa animada e feliz', v: 'happy' },
+    { l: 'Repito o comando várias vezes', v: 'repeat' },
+    { l: subC + ' simplesmente decide vir', v: 'feels' },
+    { l: 'Honestamente não sei', v: 'dontknow' }
+  ];
+  var c = document.getElementById('q6-opts'); c.innerHTML = '';
+  opts.forEach(function(o){
+    var b = document.createElement('button'); b.className = 'opt-btn';
+    b.textContent = o.l;
+    b.onclick = function(){ pickWhy(o.v, b); };
+    c.appendChild(b);
+  });
+}
+function pickWhy(v, btn) {
+  markSelected(btn);
+  s.why = v;
+  var bs = document.getElementById('btn-submit');
+  bs.classList.add('show');
+  setTimeout(function(){ bs.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 80);
+}
+
+/* RESULTADO — cards aparecem em cascata */
+function showResult() {
+  var nm  = s.name;
+  var fem = s.gender === 'femea';
+  var sub = fem ? 'ela' : 'ele';
+  var pos = fem ? 'dela' : 'dele';
+
+  var titles = {
+    ignore:     nm + ' aprendeu que ignorar você funciona, principalmente quando vocês estão na rua.',
+    hesitate:   nm + ' escuta você mas fica insegur' + (fem?'a':'o') + ', então hesita em vez de vir.',
+    sometimes:  nm + ' entende o que você quer, mas só obedece quando convém ' + sub + '.',
+    distracted: nm + ' obedece em situações fáceis, mas perde o foco quando algo mais empolgante aparece.',
+    mostly:     nm + ' geralmente volta, mas você ainda não confia totalmente nisso.'
+  };
+  var body1s = {
+    dogs:    'O maior problema agora são outros cães. É quando ' + nm + ' simplesmente desconecta de você.',
+    smells:  'O maior problema agora são os cheiros. Quando o nariz ' + pos + ' entra em ação, você perde ' + sub + '.',
+    animals: 'O maior problema agora são os animais. No momento em que ' + nm + ' avista um, você perde a atenção ' + pos + '.',
+    wander:  'O maior problema agora é explorar. ' + nm + ' curte ser livre mais do que voltar para você.',
+    people:  'O maior problema agora são lugares movimentados. Tem estimulação demais para ' + nm + ' focar.'
+  };
+  var kws = { dogs:'outros cães', smells:'cheiros fortes', animals:'pássaros e outros animais', wander:'explorar e farejar', people:'lugares movimentados' };
+  var kw = kws[s.distract] || 'distrações';
+
+  /* Preenche conteúdo */
+  document.getElementById('res-label').textContent = 'SEU PLANO DE TREINO PARA ' + nm.toUpperCase();
+  document.getElementById('res-title').textContent = titles[s.recall] || '';
+  document.getElementById('res-body1').textContent = body1s[s.distract] || '';
+  document.getElementById('res-body2').textContent = 'Neste momento, obedecer você não é tão recompensador quanto tudo que existe ao redor ' + pos + '.';
+  document.getElementById('step1-txt').textContent = 'Se obedecer sempre significa o fim da diversão, ' + nm + ' vai evitar isso. Isso é ainda mais importante por causa de ' + kw + '. Precisamos fazer com que obedecer seja a melhor opção, para que ' + sub + ' queira escolher você antes de tudo.';
+  document.getElementById('step2-txt').textContent = 'Comece em algum lugar calmo onde ' + nm + ' consiga acertar. Sem ' + kw + '. Sem pressão. É aqui que você constrói a obediência que parece natural e fácil para ' + sub + '.';
+  document.getElementById('step3-txt').textContent = 'Não vamos direto para situações difíceis. Construímos isso aos poucos, incluindo ' + kw + ' gradualmente. Assim ' + nm + ' aprende a obedecer toda vez que você chama ' + sub + '.';
+  document.getElementById('offer-personal').textContent = 'Te mostro o que fazer para ' + nm + ' te obedecer, mesmo com distrações.';
+
+  /* Esconde botão */
+  document.getElementById('btn-submit').style.display = 'none';
+
+  /* Aparece em cascata com delays */
+  var seq = ['res-diag', 'res-step1', 'res-step2', 'res-step3', 'res-alert', 'res-offer'];
+  seq.forEach(function(id, i){
+    setTimeout(function(){
+      showCard(id);
+      if (id === 'res-diag') {
+        setTimeout(function(){
+          document.getElementById('res-diag').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 80);
+      }
+    }, i * 200);
+  });
+}
+</script>
+</body>
+</html>
