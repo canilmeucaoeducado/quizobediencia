@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diagnóstico do Seu Cão — Método Online Meu Cão Educado</title>
+<title>Teste do Seu Cão — Método Online Meu Cão Educado</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
 <!-- Meta Pixel -->
@@ -647,13 +647,13 @@ function showResult() {
   seq.forEach(function(id, i){
     setTimeout(function(){
       showCard(id);
-      if (id === 'res-diag') {
-        setTimeout(function(){
-          document.getElementById('res-diag').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 80);
-      }
     }, i * 200);
   });
+
+  /* Scroll para o topo do resultado após todos aparecerem */
+  setTimeout(function(){
+    document.getElementById('res-diag').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, seq.length * 200 + 100);
 }
 </script>
 </body>
