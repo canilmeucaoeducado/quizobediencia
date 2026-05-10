@@ -5,6 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Diagnóstico do Seu Cão — Método Online Meu Cão Educado</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1336628157581322');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1336628157581322&ev=PageView&noscript=1"/></noscript>
+
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window,document,"clarity","script","w3fnz1hr1l");
+</script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -387,10 +408,10 @@
     <div class="q-sub">Escolha o maior problema no momento.</div>
     <div class="options-grid">
       <button class="opt-btn" onclick="pickDistract('dogs',this)">Outros cães</button>
-      <button class="opt-btn" onclick="pickDistract('smells',this)">Cheiros no chão</button>
+      <button class="opt-btn" onclick="pickDistract('smells',this)">Coisas no chão</button>
       <button class="opt-btn" onclick="pickDistract('animals',this)">Pássaros ou outros animais</button>
       <button class="opt-btn" onclick="pickDistract('wander',this)">Explorar e farejar tudo</button>
-      <button class="opt-btn" onclick="pickDistract('people',this)">Pessoas ou lugares movimentados</button>
+      <button class="opt-btn" onclick="pickDistract('people',this)">Pessoas, carros, motos, bicicletas...</button>
     </div>
   </div>
 
@@ -512,7 +533,7 @@ function pickGender(g, btn) {
   s.gender = g;
   var sub = g === 'femea' ? 'ela' : 'ele';
   document.getElementById('q3-title').textContent = 'Quantos anos tem ' + s.name + '?';
-  document.getElementById('q4-title').textContent = 'Você chama ' + s.name + ' durante o passeio. O que acontece?';
+  document.getElementById('q4-title').textContent = 'Quando você chama ' + s.name + ' durante o passeio, o que acontece?';
   document.getElementById('q5-title').textContent = 'O que mais distrai ' + s.name + '?';
   document.getElementById('q6-title').textContent = 'Quando ' + sub + ' obedece, qual é o motivo?';
   buildQ4(); buildQ6();
@@ -531,7 +552,7 @@ function buildQ4() {
   var sub = s.gender === 'femea' ? 'Ela' : 'Ele';
   var opts = [
     { l: sub + ' me ignora completamente', v: 'ignore' },
-    { l: sub + ' hesita mas não vem', v: 'hesitate' },
+    { l: sub + ' até olha pra mim, mas não vem', v: 'hesitate' },
     { l: sub + ' vem às vezes, não sempre', v: 'sometimes' },
     { l: sub + ' vem, mas perde o foco quando aparece algo mais interessante', v: 'distracted' },
     { l: sub + ' geralmente volta, mas eu não confio totalmente', v: 'mostly' }
