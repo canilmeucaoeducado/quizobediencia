@@ -1,660 +1,258 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teste do Seu Cão — Método Online Meu Cão Educado</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Meu Cão Educado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fff;color:#111;font-family:'Outfit',Arial,sans-serif}.page{width:min(480px,calc(100% - 36px));margin:auto;padding:30px 0 40px}.header{text-align:center;padding-bottom:22px}.header h1{font-family:'Outfit',Arial,sans-serif;font-size:38px;line-height:1;margin:0 0 12px;font-weight:900;letter-spacing:-1.5px}.header p{font-size:18px;line-height:1.35;margin:0 auto}.header-bridge{display:block;margin-top:12px;font-size:16px;line-height:1.4}.product{border-top:1px solid #ddd;padding:28px 24px;text-align:center}
+.product:nth-of-type(odd){background:#f4f7f1}
+.product:nth-of-type(even){background:#ffffff}.product h2{font-family:'Outfit',Arial,sans-serif;font-size:25px;line-height:1.1;margin:0 0 10px;font-weight:900}.subtitle{font-size:18px;font-style:italic;line-height:1.3;margin:0 0 14px}.description{font-size:17px;line-height:1.55;text-align:left;margin:0 0 18px}.button{display:block;width:100%;padding:15px 18px;border-radius:6px;background:#31501f;color:#fff;text-decoration:none;font-family:'Outfit',Arial,sans-serif;font-size:16px;font-weight:700}.button-orange{background:#e87518}.footer{border-top:1px solid #ddd;padding-top:24px;text-align:center;font-size:13px;color:#555}
 
-<!-- Meta Pixel -->
+@media (max-width:600px){
+    body{
+        -webkit-text-size-adjust:100%;
+    }
+
+    .page{
+        width:calc(100% - 28px);
+        max-width:420px;
+        padding:24px 0 32px;
+    }
+
+    .header{
+        padding-bottom:14px;
+    }
+
+    .header h1{
+        font-size:29px;
+        line-height:1.08;
+        letter-spacing:-1px;
+        margin-bottom:10px;
+        word-break:break-word;
+    }
+
+    .header p{
+        font-size:16px;
+        line-height:1.4;
+        padding:0 8px;
+    }
+    .header-bridge{
+        font-size:15px;
+        line-height:1.4;
+        margin-top:10px;
+    }
+
+    .product{
+        margin:0 -14px;
+        padding:23px 30px 24px;
+    }
+
+    .product h2{
+        font-size:22px;
+        line-height:1.12;
+        margin-bottom:8px;
+    }
+
+    .subtitle{
+        font-size:16px;
+        line-height:1.35;
+        margin-bottom:12px;
+    }
+
+    .description{
+        font-size:16px;
+        line-height:1.5;
+        margin-bottom:16px;
+    }
+
+    .button{
+        min-height:50px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:14px 16px;
+        font-size:15px;
+        line-height:1.25;
+    }
+
+    .footer{
+        padding-top:20px;
+        font-size:12px;
+    }
+}
+
+@media (max-width:360px){
+    .header h1{
+        font-size:25px;
+    }
+
+    .product h2{
+        font-size:20px;
+    }
+
+    .description{
+        font-size:15px;
+    }
+
+    .button{
+        font-size:14px;
+        padding:13px 14px;
+    }
+}
+
+/* ===== Otimização mobile ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+.header h1,.product h2{text-wrap:balance}
+.description{text-wrap:pretty}
+.button{touch-action:manipulation;transition:transform .12s ease,filter .12s ease}
+.button:active{transform:scale(.98);filter:brightness(.92)}
+.button:focus-visible{outline:3px solid #111;outline-offset:3px}
+
+@media (max-width:600px){
+    .page{
+        padding-top:max(24px,env(safe-area-inset-top));
+        padding-bottom:max(32px,env(safe-area-inset-bottom));
+    }
+    .header h1{font-size:30px;line-height:1.1;padding:0 6px}
+    .product{padding:26px 22px 26px}
+    .product h2{font-size:23px;line-height:1.15;margin-bottom:12px}
+    .description{font-size:16px;line-height:1.55;margin-bottom:20px}
+    .button{min-height:54px;padding:15px 18px;font-size:16px;border-radius:8px}
+    .footer{padding-bottom:env(safe-area-inset-bottom)}
+}
+
+@media (max-width:360px){
+    .header h1{font-size:26px}
+    .product{padding:24px 18px}
+    .product h2{font-size:21px}
+    .description{font-size:15.5px}
+    .button{font-size:15px;padding:14px 12px}
+}
+</style>
+<link rel="dns-prefetch" href="https://connect.facebook.net">
+<link rel="dns-prefetch" href="https://www.clarity.ms">
+
+<!-- Meta Pixel Code — carregado após load para não bloquear thread principal -->
 <script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','1336628157581322');
-fbq('track','PageView');
+window.addEventListener('load', function() {
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1336628157581322');
+  fbq('track', 'PageView');
+});
 </script>
 <noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1336628157581322&ev=PageView&noscript=1"/></noscript>
+src="https://www.facebook.com/tr?id=1336628157581322&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 
-<!-- Microsoft Clarity -->
-<script type="text/javascript">
-(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window,document,"clarity","script","w3fnz1hr1l");
+<!-- Microsoft Clarity — carregado após load para não bloquear thread principal -->
+<script>
+window.addEventListener('load', function() {
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "w3fnz1hr1l");
+});
 </script>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --verde-escuro: #3B4D1E;
-    --verde-medio: #5A7A2A;
-    --verde-claro: #8BAF3F;
-    --creme: #F5F0E8;
-    --creme-escuro: #EDE6D6;
-    --texto: #1A1A1A;
-    --texto-suave: #4A4A4A;
-    --branco: #FFFFFF;
-    --destaque: #E8176A;
-  }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--creme);
-    color: var(--texto);
-    min-height: 100vh;
-  }
-
-  .header {
-    background: var(--verde-escuro);
-    padding: 18px 20px;
-    text-align: center;
-  }
-  .header-brand {
-    color: var(--creme);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    opacity: 0.75;
-  }
-
-  .hero {
-    background: var(--verde-escuro);
-    text-align: center;
-    padding: 44px 24px 52px;
-  }
-  .hero h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(34px, 8vw, 58px);
-    color: var(--branco);
-    line-height: 1.05;
-    letter-spacing: 1px;
-    margin-bottom: 14px;
-  }
-  .hero h1 span { color: #C5E07A; }
-  .hero p {
-    color: rgba(255,255,255,0.75);
-    font-size: 15px;
-    line-height: 1.6;
-    max-width: 440px;
-    margin: 0 auto;
-  }
-
-  .container {
-    max-width: 660px;
-    margin: 0 auto;
-    padding: 0 16px 80px;
-  }
-
-  /* ---- CARDS BASE ---- */
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .card {
-    background: var(--branco);
-    border-radius: 14px;
-    padding: 28px 28px 32px;
-    margin-top: 16px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-  }
-  @media (max-width: 480px) { .card { padding: 22px 18px 26px; } }
-
-  .hidden { display: none !important; }
-  .visible { animation: slideDown 0.35s ease forwards; }
-
-  .step-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--verde-medio);
-    margin-bottom: 14px;
-  }
-  .q-title {
-    font-size: clamp(16px, 3.5vw, 20px);
-    font-weight: 700;
-    color: var(--texto);
-    line-height: 1.35;
-    margin-bottom: 6px;
-  }
-  .q-sub {
-    font-size: 14px;
-    color: var(--texto-suave);
-    margin-bottom: 20px;
-    line-height: 1.5;
-  }
-
-  .text-input {
-    width: 100%;
-    padding: 13px 16px;
-    border: 1.5px solid #DDD6C8;
-    border-radius: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    color: var(--texto);
-    background: var(--branco);
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .text-input:focus {
-    border-color: var(--destaque);
-    box-shadow: 0 0 0 3px rgba(232,23,106,0.1);
-  }
-
-  .options-grid { display: grid; gap: 10px; }
-  .options-grid.two-col { grid-template-columns: 1fr 1fr; }
-
-  .opt-btn {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1.5px solid #DDD6C8;
-    border-radius: 10px;
-    background: var(--branco);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--texto);
-    cursor: pointer;
-    text-align: left;
-    line-height: 1.4;
-    transition: border-color 0.15s, background 0.15s, color 0.15s;
-  }
-  .opt-btn:hover { border-color: var(--verde-medio); background: #EEF5E0; }
-  .opt-btn.selected {
-    border-color: var(--destaque);
-    background: var(--destaque);
-    color: var(--branco);
-  }
-  .options-grid.two-col .opt-btn { text-align: center; }
-
-  /* Botão Montar Plano */
-  .btn-submit {
-    display: none;
-    width: 100%;
-    padding: 18px;
-    margin-top: 16px;
-    border: none;
-    border-radius: 12px;
-    background: var(--destaque);
-    color: var(--branco);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 17px;
-    font-weight: 700;
-    cursor: pointer;
-    letter-spacing: 0.3px;
-    transition: background 0.2s, transform 0.1s;
-  }
-  .btn-submit.show { display: block; animation: slideDown 0.3s ease; margin-bottom: 48px; }
-  .btn-submit:hover { background: #c4115a; }
-  .btn-submit:active { transform: scale(0.98); }
-
-  /* ---- CARDS RESULTADO ---- */
-
-  /* Card diagnóstico — fundo rosa como no original */
-  .card-diag {
-    background: var(--destaque);
-    border-radius: 14px;
-    padding: 28px 28px 32px;
-    margin-top: 16px;
-    box-shadow: 0 2px 14px rgba(232,23,106,0.25);
-    color: var(--branco);
-  }
-  @media (max-width: 480px) { .card-diag { padding: 22px 18px 26px; } }
-
-  .diag-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.65);
-    margin-bottom: 12px;
-  }
-  .diag-title {
-    font-size: clamp(15px, 3.5vw, 17px);
-    font-weight: 700;
-    line-height: 1.45;
-    margin-bottom: 16px;
-  }
-  .diag-body {
-    font-size: 14px;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.88);
-    margin-bottom: 5px;
-  }
-  .diag-good {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--branco);
-    margin-top: 10px;
-  }
-
-  /* Cards dos 3 passos — brancos */
-  .card-step {
-    background: var(--branco);
-    border-radius: 14px;
-    padding: 20px 22px 22px;
-    margin-top: 12px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-  }
-  @media (max-width: 480px) { .card-step { padding: 18px 16px 20px; } }
-
-  .snum {
-    flex-shrink: 0;
-    width: 32px; height: 32px;
-    background: var(--destaque);
-    color: var(--branco);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    margin-top: 1px;
-  }
-  .card-step h4 { font-size: 14px; font-weight: 700; color: var(--texto); margin-bottom: 4px; }
-  .card-step p  { font-size: 14px; color: var(--texto-suave); line-height: 1.65; }
-
-  /* Card alerta — verde escuro */
-  .card-alert {
-    background: var(--verde-escuro);
-    border-radius: 14px;
-    padding: 26px 26px 28px;
-    margin-top: 12px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
-    color: var(--branco);
-  }
-  @media (max-width: 480px) { .card-alert { padding: 20px 18px 22px; } }
-  .card-alert h3 { font-size: clamp(15px, 3.5vw, 17px); font-weight: 700; margin-bottom: 8px; }
-  .card-alert p  { font-size: 14px; line-height: 1.65; opacity: 0.85; }
-
-  /* Card oferta */
-  .card-offer {
-    background: var(--branco);
-    border-radius: 14px;
-    padding: 32px 28px 36px;
-    margin-top: 12px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-  }
-  @media (max-width: 480px) { .card-offer { padding: 24px 18px 28px; } }
-
-  .offer-tag {
-    display: inline-block;
-    background: #FFF0F5;
-    color: var(--destaque);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 99px;
-    margin-bottom: 14px;
-  }
-  .offer-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(24px, 5vw, 36px);
-    color: var(--verde-escuro);
-    line-height: 1.1;
-    letter-spacing: 1px;
-    margin-bottom: 12px;
-  }
-  .offer-intro { font-size: 15px; line-height: 1.7; color: var(--texto-suave); margin-bottom: 6px; }
-  .offer-personal { font-size: 15px; font-weight: 600; color: var(--verde-escuro); margin-bottom: 24px; line-height: 1.6; }
-
-  .offer-list { list-style: none; margin-bottom: 24px; }
-  .offer-list li {
-    display: flex; gap: 10px;
-    padding: 9px 0;
-    border-bottom: 1px solid var(--creme-escuro);
-    font-size: 14px; line-height: 1.5;
-    color: var(--texto-suave);
-    align-items: flex-start;
-  }
-  .offer-list li:last-child { border-bottom: none; }
-  .offer-list li::before {
-    content: "✓";
-    color: var(--verde-medio);
-    font-weight: 700;
-    font-size: 15px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .offer-urgency {
-    font-size: 14px;
-    font-style: italic;
-    color: var(--texto-suave);
-    line-height: 1.6;
-    margin-bottom: 26px;
-    padding: 14px 16px;
-    background: var(--creme);
-    border-radius: 8px;
-    border-left: 3px solid var(--verde-claro);
-  }
-
-  .btn-cta {
-    display: block; width: 100%;
-    padding: 20px;
-    background: var(--destaque);
-    color: var(--branco);
-    text-decoration: none;
-    border-radius: 12px;
-    text-align: center;
-    transition: background 0.2s, transform 0.1s;
-  }
-  .btn-cta:hover { background: #c4115a; }
-  .btn-cta:active { transform: scale(0.98); }
-  .btn-cta-l1 { display: block; font-size: 19px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
-  .btn-cta-l2 { display: block; font-size: 13px; font-weight: 500; opacity: 0.9; margin-top: 2px; }
-
-  .footer-brand { text-align: center; margin-top: 18px; font-size: 12px; color: var(--texto-suave); opacity: 0.55; }
-</style>
+<!-- End Microsoft Clarity -->
 </head>
 <body>
+<div class="page">
+<header class="header">
+<h1>Médico Veterinário Diego Lima</h1>
+<p><span class="header-bridge"></span></p>
 
-<div class="header">
-  <span class="header-brand">Diego Lima — Veterinário Adestrador</span>
+</header>
+
+<section class="product">
+<h2>Meu Cão Educado 🎯</h2>
+
+<p class="description">Para você que está cansado de ser arrastado nos passeios, passar vergonha com as visitas e ver seu cachorro cheio de energia, agitado e sem te ouvir, mesmo depois de brincar e passear. Você tenta cansar ele, mas parece que ele nunca desliga e você nunca tem paz dentro de casa.</p>
+<a class="button" href="https://canilmeucaoeducado.github.io/meucaoeducado/">Conhecer o programa</a>
+</section>
+
+<section class="product">
+<h2>Xixi e Cocô no Lugar Certo 🚽</h2>
+<p class="description">Para você que não aguenta mais limpar xixi e cocô pela casa inteira, encontrar surpresas no chão, sentir cheiro de urina e ver a casa suja poucos minutos depois de limpar.</p>
+<a class="button button-orange" href="https://canilmeucaoeducado.github.io/banheiro/">Quero resolver isso</a>
+</section>
+
+<section class="product">
+<h2>Meu Cão Sem Estresse 🧘‍♂️</h2>
+<p class="description">Para você que vive com medo de passear com seu cão reativo, passa vergonha com os latidos e se desespera quando ele avança contra cães, motos ou pessoas. Para você que sofre ao ver seu cachorro apavorado com fogos e trovões e já não sabe mais o que fazer para ajudar ele.</p>
+<a class="button" href="https://canilmeucaoeducado.github.io/meucaoeducadov2/">Quero ajudar meu cão</a>
+</section>
+
+<section class="product">
+<h2>Consulta Online Individual 💬</h2>
+<p class="description">Se você prefere receber ajuda personalizada e quer agendar uma consulta online comigo, essa aqui é a melhor opção para você.</p>
+<a class="button button-orange" href="https://wa.me/5527997880811?text=Oi%21%20Vi%20seu%20Instagram.%20Meu%20cachorro%20tem%20um%20comportamento%20que%20est%C3%A1%20me%20incomodando.%20Pode%20me%20ajudar%3F">Agendar minha consulta</a>
+</section>
+
+<footer class="footer">© 2026 Meu Cão Educado · Diego Lima</footer>
 </div>
-
-<div class="hero">
-  <h1>Descubra por que o seu <span>cão</span> não te obedece</h1>
-  <p>Seis perguntas rápidas. Um plano feito especialmente para o seu cão.</p>
-</div>
-
-<div class="container" id="main-container">
-
-  <!-- CARD 1 — Nome -->
-  <div class="card visible" id="card1">
-    <div class="q-title">Qual é o nome do seu cão?</div>
-    <input class="text-input" type="text" id="input-nome" placeholder="Ex: Rex, Luna, Bob..." autocomplete="off">
-  </div>
-
-  <!-- CARD 2 — Gênero -->
-  <div class="card hidden" id="card2">
-    <div class="q-title" id="q2-title">É macho ou fêmea?</div>
-    <div class="options-grid two-col">
-      <button class="opt-btn" onclick="pickGender('macho',this)">Macho</button>
-      <button class="opt-btn" onclick="pickGender('femea',this)">Fêmea</button>
-    </div>
-  </div>
-
-  <!-- CARD 3 — Idade -->
-  <div class="card hidden" id="card3">
-    <div class="q-title" id="q3-title">Quantos anos tem?</div>
-    <div class="options-grid">
-      <button class="opt-btn" onclick="pickAge('filhote',this)">Filhote (menos de 1 ano)</button>
-      <button class="opt-btn" onclick="pickAge('jovem',this)">Jovem (1 a 3 anos)</button>
-      <button class="opt-btn" onclick="pickAge('adulto',this)">Adulto (3 a 7 anos)</button>
-      <button class="opt-btn" onclick="pickAge('senior',this)">Sênior (mais de 7 anos)</button>
-    </div>
-  </div>
-
-  <!-- CARD 4 — Comportamento -->
-  <div class="card hidden" id="card4">
-    <div class="q-title" id="q4-title">Você chama o seu cão durante o passeio. O que acontece?</div>
-    <div class="q-sub">Escolha a opção que mais se parece com o seu cão.</div>
-    <div class="options-grid" id="q4-opts"></div>
-  </div>
-
-  <!-- CARD 5 — Distração -->
-  <div class="card hidden" id="card5">
-    <div class="q-title" id="q5-title">O que mais distrai o seu cão?</div>
-    <div class="q-sub">Escolha o maior problema no momento.</div>
-    <div class="options-grid">
-      <button class="opt-btn" onclick="pickDistract('dogs',this)">Outros cães</button>
-      <button class="opt-btn" onclick="pickDistract('smells',this)">Coisas no chão</button>
-      <button class="opt-btn" onclick="pickDistract('animals',this)">Pássaros ou outros animais</button>
-      <button class="opt-btn" onclick="pickDistract('wander',this)">Explorar e farejar tudo</button>
-      <button class="opt-btn" onclick="pickDistract('people',this)">Pessoas, carros, motos, bicicletas...</button>
-    </div>
-  </div>
-
-  <!-- CARD 6 — Motivação -->
-  <div class="card hidden" id="card6">
-    <div class="q-title" id="q6-title">Quando ele obedece, qual é o motivo?</div>
-    <div class="q-sub">Escolha a opção mais verdadeira.</div>
-    <div class="options-grid" id="q6-opts"></div>
-  </div>
-
-  <!-- BOTÃO FINAL -->
-  <button class="btn-submit" id="btn-submit" onclick="showResult()">Montar meu plano</button>
-
-  <!-- ===== RESULTADO (cards inline, aparecem após o botão) ===== -->
-
-  <!-- Card diagnóstico -->
-  <div class="card-diag hidden" id="res-diag">
-    <div class="diag-label" id="res-label">SEU PLANO DE TREINO</div>
-    <div class="diag-title" id="res-title"></div>
-    <p class="diag-body" id="res-body1"></p>
-    <p class="diag-body" id="res-body2"></p>
-    <p class="diag-good">A boa notícia é que isso pode mudar com o treino certo.</p>
-  </div>
-
-  <!-- Passo 1 -->
-  <div class="card-step hidden" id="res-step1">
-    <div class="snum">1</div>
-    <div>
-      <h4>Mude o que obedecer significa</h4>
-      <p id="step1-txt"></p>
-    </div>
-  </div>
-
-  <!-- Passo 2 -->
-  <div class="card-step hidden" id="res-step2">
-    <div class="snum">2</div>
-    <div>
-      <h4>Construa obediência em ambiente fácil</h4>
-      <p id="step2-txt"></p>
-    </div>
-  </div>
-
-  <!-- Passo 3 -->
-  <div class="card-step hidden" id="res-step3">
-    <div class="snum">3</div>
-    <div>
-      <h4>Introduza distrações aos poucos</h4>
-      <p id="step3-txt"></p>
-    </div>
-  </div>
-
-  <!-- Card alerta -->
-  <div class="card-alert hidden" id="res-alert">
-    <h3>Onde a maioria das pessoas trava</h3>
-    <p>É fácil entender isso na teoria. Mas saber exatamente o que fazer na prática, com o seu cão, é a parte difícil.</p>
-  </div>
-
-  <!-- Card oferta -->
-  <div class="card-offer hidden" id="res-offer">
-    <div class="offer-tag">Método completo</div>
-    <div class="offer-title">Método Online Meu Cão Educado</div>
-    <p class="offer-intro">É por isso que criei o Método Online Meu Cão Educado. Um treinamento passo a passo feito especialmente para quem quer ter um cão mais calmo, que obedece em casa e na rua, sem precisar brigar ou repetir o comando várias vezes.</p>
-    <p class="offer-personal" id="offer-personal"></p>
-    <ul class="offer-list">
-      <li>Qualquer pessoa consegue aplicar, mesmo sem nunca ter treinado um cão antes.</li>
-      <li>Cabe na sua rotina: menos de 10 minutos por dia já mudam o comportamento do seu cão.</li>
-      <li>Você entende como o seu cão aprende de verdade, e isso faz tudo funcionar mais rápido.</li>
-      <li>Seu cão para de ignorar você na rua e começa a prestar atenção mesmo com distrações ao redor.</li>
-      <li>Você descobre como fazer seu cão gostar de obedecer, sem ter que mostrar o petisco e sem repetir o comando dez vezes.</li>
-      <li>Passeios deixam de ser uma batalha. Seu cão aprende a se controlar perto de outros cães, pessoas e movimento.</li>
-      <li>Você vê na prática como eu faço com cães reais de clientes, de raças e tamanhos diferentes.</li>
-      <li>Você não fica travado numa dúvida: pode perguntar direto para mim nos comentários de cada aula.</li>
-    </ul>
-    <div class="offer-urgency">Nada muda se você sair daqui sem agir. Mas se você seguir o Método Online Meu Cão Educado, você terá um cão mais calmo e obediente de verdade.</div>
-    <a class="btn-cta" href="https://canilmeucaoeducado.github.io/meucaoeducado/" target="_blank">
-      <span class="btn-cta-l1">QUERO COMEÇAR AGORA</span>
-      <span class="btn-cta-l2">Acessar o Método Online Meu Cão Educado</span>
-    </a>
-    <div class="footer-brand">Diego Lima — Veterinário Adestrador • @vetadestradordiego</div>
-  </div>
-
-</div><!-- fim container -->
 
 <script>
-var s = { name:'', gender:null, age:null, recall:null, distract:null, why:null };
-var nameTimer;
+(function () {
+  try {
+    var atual = new URLSearchParams(window.location.search);
+    var chaves = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term'];
+    var params = {};
+    chaves.forEach(function (k) {
+      var v = atual.get(k);
+      if (v && v.trim()) params[k] = v.trim();
+    });
 
-function showCard(id) {
-  var el = document.getElementById(id);
-  if (!el.classList.contains('hidden')) return;
-  el.classList.remove('hidden');
-  el.classList.remove('visible');
-  void el.offsetWidth;
-  el.classList.add('visible');
-  setTimeout(function(){ el.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 60);
-}
+    var origem = params.utm_source ? params.utm_source.toLowerCase() : '';
 
-function markSelected(btn) {
-  btn.parentElement.querySelectorAll('.opt-btn').forEach(function(b){ b.classList.remove('selected'); });
-  btn.classList.add('selected');
-}
+    // 1. Repassa os UTM para os links dos programas
+    if (params.utm_source) {
+      if (!params.utm_campaign) params.utm_campaign = 'bio';
+      params.utm_content = 'pagina-principal';
 
-/* Q1 */
-document.getElementById('input-nome').addEventListener('input', function(){
-  clearTimeout(nameTimer);
-  var val = this.value.trim();
-  s.name = val;
-  if (val.length >= 2) {
-    nameTimer = setTimeout(function(){
-      document.getElementById('q2-title').textContent = s.name + ' é macho ou fêmea?';
-      showCard('card2');
-    }, 350);
-  }
-});
+      var links = document.querySelectorAll('.product a.button');
+      for (var i = 0; i < links.length; i++) {
+        var href = links[i].getAttribute('href');
+        if (href.indexOf('wa.me') !== -1) continue;
+        var url = new URL(href, window.location.href);
+        Object.keys(params).forEach(function (k) {
+          url.searchParams.set(k, params[k]);
+        });
+        links[i].setAttribute('href', url.toString());
+      }
+    }
 
-/* Q2 */
-function pickGender(g, btn) {
-  markSelected(btn);
-  s.gender = g;
-  var sub = g === 'femea' ? 'ela' : 'ele';
-  document.getElementById('q3-title').textContent = 'Quantos anos tem ' + s.name + '?';
-  document.getElementById('q4-title').textContent = 'Quando você chama ' + s.name + ' durante o passeio, o que acontece?';
-  document.getElementById('q5-title').textContent = 'O que mais distrai ' + s.name + '?';
-  document.getElementById('q6-title').textContent = 'Quando ' + sub + ' obedece, qual é o motivo?';
-  buildQ4(); buildQ6();
-  showCard('card3');
-}
-
-/* Q3 */
-function pickAge(a, btn) {
-  markSelected(btn);
-  s.age = a;
-  showCard('card4');
-}
-
-/* Q4 */
-function buildQ4() {
-  var sub = s.gender === 'femea' ? 'Ela' : 'Ele';
-  var opts = [
-    { l: sub + ' me ignora completamente', v: 'ignore' },
-    { l: sub + ' até olha pra mim, mas não vem', v: 'hesitate' },
-    { l: sub + ' vem às vezes, não sempre', v: 'sometimes' },
-    { l: sub + ' vem, mas perde o foco quando aparece algo mais interessante', v: 'distracted' },
-    { l: sub + ' geralmente volta, mas eu não confio totalmente', v: 'mostly' }
-  ];
-  var c = document.getElementById('q4-opts'); c.innerHTML = '';
-  opts.forEach(function(o){
-    var b = document.createElement('button'); b.className = 'opt-btn';
-    b.textContent = o.l;
-    b.onclick = function(){ pickRecall(o.v, b); };
-    c.appendChild(b);
-  });
-}
-function pickRecall(v, btn) {
-  markSelected(btn);
-  s.recall = v;
-  showCard('card5');
-}
-
-/* Q5 */
-function pickDistract(v, btn) {
-  markSelected(btn);
-  s.distract = v;
-  showCard('card6');
-}
-
-/* Q6 */
-function buildQ6() {
-  var sub = s.gender === 'femea' ? 'ela' : 'ele';
-  var subC = sub.charAt(0).toUpperCase() + sub.slice(1);
-  var opts = [
-    { l: 'Tenho comida ou petisco na mão', v: 'food' },
-    { l: 'Minha voz soa animada e feliz', v: 'happy' },
-    { l: 'Repito o comando várias vezes', v: 'repeat' },
-    { l: subC + ' simplesmente decide vir', v: 'feels' },
-    { l: 'Honestamente não sei', v: 'dontknow' }
-  ];
-  var c = document.getElementById('q6-opts'); c.innerHTML = '';
-  opts.forEach(function(o){
-    var b = document.createElement('button'); b.className = 'opt-btn';
-    b.textContent = o.l;
-    b.onclick = function(){ pickWhy(o.v, b); };
-    c.appendChild(b);
-  });
-}
-function pickWhy(v, btn) {
-  markSelected(btn);
-  s.why = v;
-  var bs = document.getElementById('btn-submit');
-  bs.classList.add('show');
-  setTimeout(function(){ bs.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 80);
-}
-
-/* RESULTADO — cards aparecem em cascata */
-function showResult() {
-  var nm  = s.name;
-  var fem = s.gender === 'femea';
-  var sub = fem ? 'ela' : 'ele';
-  var pos = fem ? 'dela' : 'dele';
-
-  var titles = {
-    ignore:     nm + ' aprendeu que ignorar você funciona, principalmente quando vocês estão na rua.',
-    hesitate:   nm + ' escuta você mas fica insegur' + (fem?'a':'o') + ', então hesita em vez de vir.',
-    sometimes:  nm + ' entende o que você quer, mas só obedece quando convém ' + sub + '.',
-    distracted: nm + ' obedece em situações fáceis, mas perde o foco quando algo mais empolgante aparece.',
-    mostly:     nm + ' geralmente volta, mas você ainda não confia totalmente nisso.'
-  };
-  var body1s = {
-    dogs:    'O maior problema agora são outros cães. É quando ' + nm + ' simplesmente desconecta de você.',
-    smells:  'O maior problema agora são os cheiros. Quando o nariz ' + pos + ' entra em ação, você perde ' + sub + '.',
-    animals: 'O maior problema agora são os animais. No momento em que ' + nm + ' avista um, você perde a atenção ' + pos + '.',
-    wander:  'O maior problema agora é explorar. ' + nm + ' curte ser livre mais do que voltar para você.',
-    people:  'O maior problema agora são lugares movimentados. Tem estimulação demais para ' + nm + ' focar.'
-  };
-  var kws = { dogs:'outros cães', smells:'cheiros fortes', animals:'pássaros e outros animais', wander:'explorar e farejar', people:'lugares movimentados' };
-  var kw = kws[s.distract] || 'distrações';
-
-  /* Preenche conteúdo */
-  document.getElementById('res-label').textContent = 'SEU PLANO DE TREINO PARA ' + nm.toUpperCase();
-  document.getElementById('res-title').textContent = titles[s.recall] || '';
-  document.getElementById('res-body1').textContent = body1s[s.distract] || '';
-  document.getElementById('res-body2').textContent = 'Neste momento, obedecer você não é tão recompensador quanto tudo que existe ao redor ' + pos + '.';
-  document.getElementById('step1-txt').textContent = 'Se obedecer sempre significa o fim da diversão, ' + nm + ' vai evitar isso. Isso é ainda mais importante por causa de ' + kw + '. Precisamos fazer com que obedecer seja a melhor opção, para que ' + sub + ' queira escolher você antes de tudo.';
-  document.getElementById('step2-txt').textContent = 'Comece em algum lugar calmo onde ' + nm + ' consiga acertar. Sem ' + kw + '. Sem pressão. É aqui que você constrói a obediência que parece natural e fácil para ' + sub + '.';
-  document.getElementById('step3-txt').textContent = 'Não vamos direto para situações difíceis. Construímos isso aos poucos, incluindo ' + kw + ' gradualmente. Assim ' + nm + ' aprende a obedecer toda vez que você chama ' + sub + '.';
-  document.getElementById('offer-personal').textContent = 'Te mostro o que fazer para ' + nm + ' te obedecer, mesmo com distrações.';
-
-  /* Esconde botão */
-  document.getElementById('btn-submit').style.display = 'none';
-
-  /* Aparece em cascata com delays */
-  var seq = ['res-diag', 'res-step1', 'res-step2', 'res-step3', 'res-alert', 'res-offer'];
-  seq.forEach(function(id, i){
-    setTimeout(function(){
-      showCard(id);
-    }, i * 200);
-  });
-
-  /* Scroll para o topo do resultado após todos aparecerem */
-  setTimeout(function(){
-    document.getElementById('res-diag').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, seq.length * 200 + 100);
-}
+    // 2. Ajusta o texto da mensagem do WhatsApp conforme a rede de origem
+    var REDES = {
+      instagram: 'Instagram',
+      facebook: 'Facebook',
+      tiktok: 'TikTok'
+    };
+    if (REDES[origem]) {
+      var wppLinks = document.querySelectorAll('.product a.button[href*="wa.me"]');
+      for (var j = 0; j < wppLinks.length; j++) {
+        var wpp = wppLinks[j];
+        var u = new URL(wpp.getAttribute('href'), window.location.href);
+        var texto = u.searchParams.get('text') || '';
+        texto = texto.replace('Vi seu Instagram', 'Vi seu ' + REDES[origem]);
+        u.searchParams.set('text', texto);
+        wpp.setAttribute('href', u.toString());
+      }
+    }
+  } catch (e) {}
+})();
 </script>
 </body>
 </html>
